@@ -3,6 +3,7 @@
  */
 package com.davidperezpardo.superheroes.service.superhero.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mapstruct.factory.Mappers;
@@ -37,10 +38,17 @@ public class SuperheroServiceImpl implements SuperheroService {
 		
 		try {
 			
-			return null;
+			List<SuperheroDto> superHeroDtoList = new ArrayList<>();
+			var result = superheroRepositoryDao.findByNameContainsIgnoreCaseAndDeletedAtIsNull(name);
+			
+			result.forEach(superhero -> {
+				superHeroDtoList.add(superheroMapper.superheroToSuperheroDto(superhero));
+			});
+			
+			return superHeroDtoList;
 
 		} catch (Exception e) {
-			log.error("ERROR - SuperheroServiceImpl.getAll : ".concat(e.getMessage()));
+			log.error("ERROR - SuperheroServiceImpl.getAll : ".concat(e.toString()));
 			throw new ServiceException(ErrorsConstants.ERROR_SUPERHERO.getCodeError(), ErrorsConstants.ERROR_SUPERHERO.getDescriptionError());
 		}
 	}
