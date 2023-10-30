@@ -6,7 +6,7 @@ import com.davidperezpardo.superheroes.domain.exception.ServiceException;
 import com.davidperezpardo.superheroes.domain.superhero.dto.SuperheroDto;
 
 /**
- * Superhero servicce interface.
+ * Superhero service interface.
  * @author David
  *
  */
@@ -18,6 +18,32 @@ public interface SuperheroService {
 	 * Do not return those that are eliminated.
 	 * @param name {@link String}
 	 * @return a superhero list {@link List}
+	 * @exception ServiceException {link ServiceException}
 	 */
-	public List<SuperheroDto> getAll(String name) throws ServiceException;	
+	public List<SuperheroDto> getAll(String name) throws ServiceException;
+	
+	/**
+	 * Find a superhero by id.
+	 * @param superhero id {@link Integer}
+	 * @exception {link ServiceException}
+	 * @return superheroDto {link {@link SuperheroDto}
+	 * @exception ServiceException {link ServiceException}
+	 */
+	public SuperheroDto findById(Integer id) throws ServiceException;
+	
+	/**
+	 * Save or update a superhero.
+	 * @param superhero {@link SuperheroDto}
+	 * @return boolean {link Boolean}
+	 * @exception ServiceException {link ServiceException}
+	 */
+	public Boolean saveOrUpdate(SuperheroDto superheroDto) throws ServiceException;
+	
+	/**
+	 * Delete a superhero setting datetime in deleted_at column.
+	 * @param superheroDto {@link SuperheroDto}
+	 * @return boolean {link Boolean}
+	 * @exception ServiceException {link ServiceException}
+	 */
+	public Boolean delete(SuperheroDto superheroDto) throws ServiceException;
 }

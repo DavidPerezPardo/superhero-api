@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.davidperezpardo.superheroes.repository.superhero.mappers;
 
 import org.mapstruct.Mapper;
@@ -22,4 +19,10 @@ public interface SuperheroMapper {
 	@Mapping(source = "createdAt", target = "fechaCreacion")
 	@Mapping(source = "updatedAt", target = "fechaModificacion")
 	SuperheroDto superheroToSuperheroDto(Superhero superhero);
+	
+	@Mapping(source = "nombre", target = "name")
+	@Mapping(source = "fechaCreacion", target = "createdAt")
+	@Mapping(source = "fechaModificacion", target = "updatedAt")
+	@Mapping(target = "deletedAt", ignore = true)
+	Superhero superheroDtoToSuperhero(SuperheroDto superheroDto);
 }

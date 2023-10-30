@@ -34,4 +34,29 @@ public class HeroRestController {
 		var result = superheroService.getAll(searchName);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/get-superhero/{id}")
+	public ResponseEntity<SuperheroDto> getById(@PathVariable Integer id) throws ServiceException {
+		
+		var result = superheroService.findById(id);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PatchMapping(value = "/update-superhero/{id}")
+	public ResponseEntity<SuperheroDto> update(@PathVariable Integer id, @RequestBody SuperheroDto superheroDto) throws ServiceException {
+		
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/delete-superhero/{id}")  
+	public ResponseEntity<SuperheroDto> delete(@PathVariable Integer id) throws ServiceException {
+		
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/save-superhero")  
+	public ResponseEntity<SuperheroDto> insert(@RequestBody SuperheroDto superheroDto) throws ServiceException {
+		
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
 }

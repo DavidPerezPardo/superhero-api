@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.davidperezpardo.superheroes.service.superhero.impl;
 
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class SuperheroServiceImpl implements SuperheroService {
 	@Autowired
 	private SuperheroRepositoryDao superheroRepositoryDao;
 	
-	private	static final SuperheroMapper superheroMapper =  Mappers.getMapper(SuperheroMapper.class);
+	private	static final SuperheroMapper SUPERHERO_MAPPER =  Mappers.getMapper(SuperheroMapper.class);
 	
 	@Override
 	public List<SuperheroDto> getAll(String name) throws ServiceException {
@@ -42,7 +39,7 @@ public class SuperheroServiceImpl implements SuperheroService {
 			var result = superheroRepositoryDao.findByNameContainsIgnoreCaseAndDeletedAtIsNull(name);
 			
 			result.forEach(superhero -> {
-				superHeroDtoList.add(superheroMapper.superheroToSuperheroDto(superhero));
+				superHeroDtoList.add(SUPERHERO_MAPPER.superheroToSuperheroDto(superhero));
 			});
 			
 			return superHeroDtoList;
@@ -51,5 +48,32 @@ public class SuperheroServiceImpl implements SuperheroService {
 			log.error("ERROR - SuperheroServiceImpl.getAll : ".concat(e.toString()));
 			throw new ServiceException(ErrorsConstants.ERROR_SUPERHERO.getCodeError(), ErrorsConstants.ERROR_SUPERHERO.getDescriptionError());
 		}
+	}
+
+	@Override
+	public SuperheroDto findById(Integer id) throws ServiceException {
+		
+		try {
+			
+			var foundedSuperhero = superheroRepositoryDao.findById(id);
+
+			if(foundedSuperhero.isPresent()) {
+				return SUPERHERO_MAPPER.superheroToSuperheroDto(foundedSuperhero.get());
+			}		
+		} catch (Exception e) {
+			log.error("ERROR - SuperheroServiceImpl.findById : ".concat(e.toString()));
+			throw new ServiceException(ErrorsConstants.ERROR_SUPERHERO.getCodeError(), ErrorsConstants.ERROR_SUPERHERO.getDescriptionError());
+		}
+		return null;
+	}
+	
+	@Override
+	public Boolean saveOrUpdate(SuperheroDto superheroDto) {
+		return true;
+	}
+
+	@Override
+	public Boolean delete(SuperheroDto superheroDto) throws ServiceException {
+		return null;
 	}
 }
