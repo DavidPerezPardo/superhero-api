@@ -1,6 +1,7 @@
 package com.davidperezpardo.superheroes.domain.superhero.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
+ * Entity class for Superhero table.
  * @author David
  *
  */
@@ -31,12 +33,12 @@ public class Superhero implements Serializable {
 	@Column
 	private String name;
 	
-	@Column(name = "created_at", insertable = false)
-	private String createdAt;
+	@Column(name = "created_at", insertable = false, updatable = false)
+	private Date createdAt;
 	
-	@Column(name = "updated_at", insertable = false)
-	private String updatedAt;
+	@Column(name = "updated_at", insertable = false, updatable = false)
+	private Date updatedAt;
 	
-	@Column(name = "deleted_at")
-	private String deletedAt;
+	@Column(name = "deleted_at", insertable = false, updatable = false)
+	private Date deletedAt;
 }

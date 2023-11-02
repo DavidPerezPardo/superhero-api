@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.davidperezpardo.superheroes.domain.constant;
 
 import java.util.Arrays;
@@ -15,7 +12,8 @@ import lombok.Getter;
 @Getter
 public enum ErrorsConstants {
 
-	ERROR_SUPERHERO(1000, "Se produjo un error");
+	ERROR_SUPERHERO(1000, "Se produjo un error inesperado en el servidor, inténtelo más tarde!"),
+	ERROR_EMPTY_SUPERHERO(1001, "No se encontró un Superheroe con el id proporcionado");
 	
 	private int codeError;
 	private String descriptionError;

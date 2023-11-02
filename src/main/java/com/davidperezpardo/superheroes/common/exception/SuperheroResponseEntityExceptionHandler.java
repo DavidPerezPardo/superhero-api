@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.davidperezpardo.superheroes.common.exception;
 
 import org.springframework.http.HttpStatus;
@@ -27,7 +24,13 @@ public class SuperheroResponseEntityExceptionHandler extends ResponseEntityExcep
 	  @ExceptionHandler(ServiceException.class)
 	  public final ResponseEntity<ErrorInfo> handleServiceException(ServiceException ex) {
 	    
-		ErrorInfo exceptionResponse = new ErrorInfo(ex);	    
-	    return new ResponseEntity<ErrorInfo>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		ErrorInfo exceptionResponse = new ErrorInfo(ex);
+		
+		switch (ex.getCode()) {
+		case 1001:
+			return new ResponseEntity<ErrorInfo>(exceptionResponse, HttpStatus.NOT_FOUND);
+		default:
+		}
+		return new ResponseEntity<ErrorInfo>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	  }
 }

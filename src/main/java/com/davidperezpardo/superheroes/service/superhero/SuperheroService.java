@@ -26,7 +26,7 @@ public interface SuperheroService {
 	 * Find a superhero by id.
 	 * @param superhero id {@link Integer}
 	 * @exception {link ServiceException}
-	 * @return superheroDto {link {@link SuperheroDto}
+	 * @return superheroDto {@link SuperheroDto}
 	 * @exception ServiceException {link ServiceException}
 	 */
 	public SuperheroDto findById(Integer id) throws ServiceException;
@@ -34,16 +34,15 @@ public interface SuperheroService {
 	/**
 	 * Save or update a superhero.
 	 * @param superhero {@link SuperheroDto}
-	 * @return boolean {link Boolean}
+	 * @return superheroDto {link {@link SuperheroDto}
 	 * @exception ServiceException {link ServiceException}
 	 */
-	public Boolean saveOrUpdate(SuperheroDto superheroDto) throws ServiceException;
+	public SuperheroDto saveOrUpdate(SuperheroDto superheroDto, Integer id) throws ServiceException;
 	
 	/**
 	 * Delete a superhero setting datetime in deleted_at column.
-	 * @param superheroDto {@link SuperheroDto}
-	 * @return boolean {link Boolean}
+	 * @param superhero id {@link Integer}
 	 * @exception ServiceException {link ServiceException}
 	 */
-	public Boolean delete(SuperheroDto superheroDto) throws ServiceException;
+	public void delete(Integer id) throws ServiceException;
 }
