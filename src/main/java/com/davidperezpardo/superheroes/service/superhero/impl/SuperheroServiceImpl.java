@@ -3,13 +3,17 @@ package com.davidperezpardo.superheroes.service.superhero.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.davidperezpardo.superheroes.domain.constant.ErrorsConstants;
 import com.davidperezpardo.superheroes.domain.exception.ServiceException;
 import com.davidperezpardo.superheroes.domain.superhero.dto.SuperheroDto;
+import com.davidperezpardo.superheroes.domain.superhero.model.Superhero;
 import com.davidperezpardo.superheroes.repository.superhero.dao.SuperheroRepositoryDao;
 import com.davidperezpardo.superheroes.repository.superhero.mappers.SuperheroMapper;
 import com.davidperezpardo.superheroes.service.superhero.SuperheroService;
@@ -27,6 +31,9 @@ public class SuperheroServiceImpl implements SuperheroService {
 
 	@Autowired
 	private SuperheroRepositoryDao superheroRepositoryDao;
+	
+	@Autowired
+	private EntityManager entityManager;
 	
 	private	static final SuperheroMapper SUPERHERO_MAPPER =  Mappers.getMapper(SuperheroMapper.class);
 	
@@ -52,28 +59,44 @@ public class SuperheroServiceImpl implements SuperheroService {
 
 	@Override
 	public SuperheroDto findById(Integer id) throws ServiceException {
-		
-		try {
-			
-			var foundedSuperhero = superheroRepositoryDao.findById(id);
 
-			if(foundedSuperhero.isPresent()) {
-				return SUPERHERO_MAPPER.superheroToSuperheroDto(foundedSuperhero.get());
-			}		
-		} catch (Exception e) {
-			log.error("ERROR - SuperheroServiceImpl.findById : ".concat(e.toString()));
-			throw new ServiceException(ErrorsConstants.ERROR_SUPERHERO.getCodeError(), ErrorsConstants.ERROR_SUPERHERO.getDescriptionError());
+		var foundedSuperhero = superheroRepositoryDao.findByIdAndDeletedAtIsNull(id);
+
+		if(foundedSuperhero.isEmpty()) {
+			
+			log.warn("ERROR - SuperheroServiceImpl.findById : "
+					.concat(ErrorsConstants.ERROR_EMPTY_SUPERHERO.getDescriptionError()
+					.concat(":".concat(id.toString()))));
+			throw new ServiceException(ErrorsConstants.ERROR_EMPTY_SUPERHERO.getCodeError(),
+					ErrorsConstants.ERROR_EMPTY_SUPERHERO.getDescriptionError());
+			
 		}
-		return null;
+		return SUPERHERO_MAPPER.superheroToSuperheroDto(foundedSuperhero.get());
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
-	public Boolean saveOrUpdate(SuperheroDto superheroDto) {
-		return true;
+	public SuperheroDto saveOrUpdate(SuperheroDto superheroDto, Integer id) throws ServiceException {
+				
+		Superhero savedOrUpdatedSuperhero = new Superhero();
+		
+		if(null != id) {
+			// To update
+			superheroDto.setId(id);
+			// Throw exception if not exists
+			findById(id);
+		}
+		// Create or update
+		savedOrUpdatedSuperhero = superheroRepositoryDao.saveAndFlush(SUPERHERO_MAPPER.superheroDtoToSuperhero(superheroDto));
+		entityManager.refresh(savedOrUpdatedSuperhero);
+		
+		return SUPERHERO_MAPPER.superheroToSuperheroDto(savedOrUpdatedSuperhero);			
 	}
 
 	@Override
-	public Boolean delete(SuperheroDto superheroDto) throws ServiceException {
-		return null;
+	public void delete(Integer id) throws ServiceException {
+		
+		findById(id);
+		superheroRepositoryDao.softDeleteById(id);		
 	}
 }
