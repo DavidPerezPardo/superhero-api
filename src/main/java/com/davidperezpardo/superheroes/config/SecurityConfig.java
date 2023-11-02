@@ -18,8 +18,6 @@ import com.davidperezpardo.superheroes.filter.FixedTokenFilter;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
-    private static final String FIXED_TOKEN = "tu_token_fijo_aqui";
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
