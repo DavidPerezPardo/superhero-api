@@ -1,0 +1,51 @@
+{
+	"id": "c8b412b7-616b-49de-80d7-f6955bd3e6b0",
+	"values": [
+		{
+			"key": "LOCAL_HOST",
+			"value": "http://localhost:8080",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "get-all-superheroes",
+			"value": "/api/superheroes/get-all-superheroes",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "get-superhero",
+			"value": "/api/superheroes/get-superhero",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "save-superhero",
+			"value": "/api/superheroes/save-superhero",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "update-superhero",
+			"value": "/api/superheroes/update-superhero",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "delete-superhero",
+			"value": "/api/superheroes/delete-superhero",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "API_KEY",
+			"value": "api-key-fija",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-11-03T09:58:40.847Z",
+	"_postman_exported_using": "Postman/10.19.14"
+}

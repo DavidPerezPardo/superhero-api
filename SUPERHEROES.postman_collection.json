@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "bb13a190-48d7-43c8-8402-5699593af365",
+		"name": "SUPERHEROES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11565584"
+	},
+	"item": [
+		{
+			"name": "Get all superheroes",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL_HOST}}{{get-all-superheroes}}",
+					"host": [
+						"{{LOCAL_HOST}}{{get-all-superheroes}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all superheroes by name",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL_HOST}}{{get-all-superheroes}}?searchName=Superman",
+					"host": [
+						"{{LOCAL_HOST}}{{get-all-superheroes}}"
+					],
+					"query": [
+						{
+							"key": "searchName",
+							"value": "Superman"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save a superhero",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"nombre\": \"Venom\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LOCAL_HOST}}{{save-superhero}}",
+					"host": [
+						"{{LOCAL_HOST}}{{save-superhero}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a superhero",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Lobezno\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LOCAL_HOST}}{{update-superhero}}/1",
+					"host": [
+						"{{LOCAL_HOST}}{{update-superhero}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a superhero by id",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL_HOST}}{{delete-superhero}}/50",
+					"host": [
+						"{{LOCAL_HOST}}{{delete-superhero}}"
+					],
+					"path": [
+						"50"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a superhero by id",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL_HOST}}{{get-superhero}}/22",
+					"host": [
+						"{{LOCAL_HOST}}{{get-superhero}}"
+					],
+					"path": [
+						"22"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
