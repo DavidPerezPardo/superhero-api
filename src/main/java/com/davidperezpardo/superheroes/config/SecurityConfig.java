@@ -22,10 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
+            .antMatchers("swagger-ui").permitAll() // swagger documentacion
             .antMatchers("/public/**").permitAll() // Rutas públicas
-            .antMatchers("/**").authenticated() // Todas las demás rutas requieren autenticación
-            .and()
-            .httpBasic()
+            .antMatchers("/api/**").authenticated() // Todas las demás rutas requieren autenticación
             .and()
             .addFilterBefore(new FixedTokenFilter(), BasicAuthenticationFilter.class);
     }
